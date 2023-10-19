@@ -9,9 +9,9 @@ import { MainContainer } from "./MainContainer.styled";
 const getInitialContacts = () =>{
   const savedContacts = localStorage.getItem(`saved-contacts`);// читаємо з LS збережені контакти
   if(savedContacts !== null) {// якщо savedContacts не пустий...     
-    return JSON.parse(savedContacts);// парсимо з LS контакти в state
+    return JSON.parse(savedContacts);// парсимо контакти з LS  
   } 
-  return  [];    
+    return  [];    
 }
 
 export const App = () =>{
@@ -34,9 +34,11 @@ export const App = () =>{
       alert(`${name} is already in contacts.`);
       return;
     }
-    setContacts(prevContacts => [    
-      ...prevContacts, {id: nanoid(),...newContact }      
+    
+    setContacts(prevState => [    
+      ...prevState, {id: nanoid(),...newContact }      
     ]);
+
   };
 
   const deleteContact = contactId => {
@@ -59,8 +61,6 @@ export const App = () =>{
       <ContactFilter value={filter} onChangeFilter={changeFilter}/>
       <ContactList contacts={filteredContacts()} onDelete={deleteContact}/>      
     </MainContainer>
-  )
+  );
 
-}
-
-
+};
